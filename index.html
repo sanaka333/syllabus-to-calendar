@@ -1,0 +1,25 @@
+<!DOCTYPE html> <!-- Defines the document type as HTML5 -->
+<html lang="en"> <!-- Root element of the page, language set to English -->
+<head>
+    <meta charset="UTF-8"> <!-- Character encoding for proper text display -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes page responsive on mobile -->
+    <title>Syllabus to Calendar</title> <!-- Title shown in the browser tab -->
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS file for styling -->
+</head>
+<body>
+    <h1>Syllabus to Calendar</h1> <!-- Main heading of the page -->
+
+    <!-- File Input: allows user to select a syllabus PDF -->
+    <input type="file" id="fileInput" />
+
+    <!-- Upload Button: triggers the file upload to backend -->
+    <button id="uploadBtn" type="button">Upload</button>
+
+     <!-- Section where extracted tasks will be displayed -->
+    <h2>Extracted Tasks</h2>
+    <pre id="results"></pre> <!-- Preformatted block to preserve JSON formatting -->
+
+     <!-- Link to the compiled JavaScript (frontend logic) -->
+    <script src="script.js"></script>
+</body>
+</html> 

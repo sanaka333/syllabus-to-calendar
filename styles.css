@@ -1,0 +1,49 @@
+body{
+    font-family: Arial, Helvetica, sans-serif; /* Use a clean sans-serif font */
+    background-color: #f4f6f9;               /* Light gray background for the whole page */
+    margin: 0;                                 /* Remove default browser margin */
+    padding: 20px;                             /* Add spacing inside the body */
+    display: flex;                             /* Use flexbox layout */
+    flex-direction: column;                    /* Arrange elements vertically */
+    align-items: center;                       /* Center content horizontally */
+}
+
+h1, h2{
+    text-align: center;                        /* Center-align all h1 and h2 headings */
+    color: #222;                             /* Dark gray text color */
+}
+
+input[type="file"],                             
+button {
+  margin: 20px 0;                              /* Add vertical spacing above and below inputs/buttons */
+  padding: 10px 15px;                          /* Add inner spacing for clickable area */
+  font-size: 1rem;                             /* Make text size consistent and readable */
+}
+
+button {
+  background-color: #007bff;                 /* Primary blue button background */
+  color: white;                              /* White button text */
+  border: none;                                /* Remove default button borders */
+  border-radius: 5px;                          /* Slightly rounded button corners */
+  cursor: pointer;                             /* Change cursor to hand pointer on hover */
+}
+
+button:hover {
+  background-color: #0056b3;                 /* Change button color on hover */
+}
+
+#results {
+  margin-top: 20px;                            /* Add space above the results section */
+  padding: 15px;                               /* Inner spacing inside the results box */
+  width: 90%;                                  /* Take up 90% of the container's width */
+  max-width: 600px;                            /* But never exceed 600px in width */
+  background-color: #fff;                    /* White background for readability */
+  border: 1px solid #ddd;                    /* Light gray border around results */
+  border-radius: 8px;                          /* Rounded corners for a softer look */
+  white-space: pre-wrap;                       /* Preserve line breaks & spacing, wraps text if too long 
+                                                  and keeps JSON formatting readable */
+}
+
+
+
+

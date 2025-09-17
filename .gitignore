@@ -9,3 +9,6 @@ dist/
 
 # macOS system files
 .DS_Store
+
+# Uploaded/generated files
+uploads/

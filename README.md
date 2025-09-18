@@ -18,10 +18,10 @@
 }
 ```
 4) Create a .env file in the root directory with the following key:
-   - OPENAI_API_KEY=your_api_key_here
+  - OPENAI_API_KEY=your_api_key_here
 
 5) Run the app:
-   - npm run dev
+  - npm run dev
 
 6) (Optional) Use the sample syllabi provided in the test-files/ folder to test the application.
 

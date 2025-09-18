@@ -39,17 +39,17 @@ The goal of this project was to take a syllabus in PDF format and transform it i
    - A library such as `pdf-parse` converts this binary into raw text.  
    - The extracted text is then cleaned by removing unnecessary whitespace, line breaks, and formatting artifacts to prepare it for LLM processing.
 
-3) LLM Processing
+3) LLM Processing:
    - The cleaned syllabus text is sent to a Large Language Model (OpenAI/Claude).  
    - The LLM analyzes the content and generates structured output that looks like JSON.  
    - This output includes key fields such as dates, titles, and descriptions of assignments or exams.  
    - However, the LLM usually returns this data as a raw string rather than an actual JSON object.
 
-4) JSON Parsing and Response 
+4) JSON Parsing and Response:
    - The backend takes the raw string returned by the LLM and parses it into a valid JSON object using `JSON.parse()`.  
    - Once parsed, the backend can directly access fields like `date`, `title`, and `description` without extra text processing.  
    - This JSON object is then sent back to the frontend as the response, where it can be displayed or used for further features.
 
-5) Testing
-   Two sample syllabus files (`Dawson-Syllabus-Fall-2024.pdf` and `Syllabus-1950.pdf`) are included in the `test-files/` folder.  
-   These files are provided to demonstrate the upload, extraction, and conversion workflow without requiring users to supply their own syllabus immediately.
+5) Testing:
+   - Two sample syllabus files (`Dawson-Syllabus-Fall-2024.pdf` and `Syllabus-1950.pdf`) are included in the `test-files/` folder.  
+   - These files are provided to demonstrate the upload, extraction, and conversion workflow without requiring users to supply their own syllabus immediately.

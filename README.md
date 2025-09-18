@@ -3,25 +3,33 @@
 ## Setup Instructions
 
 1) Clone the repository:
-  - git clone https://github.com/YOUR-USERNAME/syllabus-to-calendar.git
-  - cd syllabus-to-calendar
+   ```
+      git clone https://github.com/YOUR-USERNAME/syllabus-to-calendar.git
+      cd syllabus-to-calendar
+   ```
 
 2) Install dependencies:
-  - npm install
+   ```
+      npm install
+   ```
 
 3) Update your `package.json` to include a `dev` script:
 
-```json
-"scripts": {
-  "dev": "ts-node index.ts",
-  "test": "echo \"Error: no test specified\" && exit 1"
-}
-```
+  ```json
+  "scripts": {
+    "dev": "ts-node index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+  ```
 4) Create a .env file in the root directory with the following key:
-  - OPENAI_API_KEY=your_api_key_here
+   ```
+      OPENAI_API_KEY=your_api_key_here
+   ```
 
 5) Run the app:
-  - npm run dev
+   ```
+      npm run dev
+   ```
 
 6) (Optional) Use the sample syllabi provided in the test-files/ folder to test the application.
 

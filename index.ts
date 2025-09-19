@@ -44,7 +44,7 @@ app.use(cors());
 // Allow Express to serve static frontend files (HTML, CSS, JS) directly from this folder.
 // This lets the browser load index.html, styles.css or script.js without extra routes
 // In other words, Express also works as a simple web server for our frontend assets
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Configure Multer middleware to handle file uploads
 // - Use memoryStorage() instead of writing files to disk

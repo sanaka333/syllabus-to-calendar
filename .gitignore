@@ -12,3 +12,9 @@ dist/
 
 # Uploaded/generated files
 uploads/
+
+# Google API credentials
+credentials.json
+
+# Ignore Google API tokens
+token.json

@@ -15,12 +15,12 @@
 
 3) Update your `package.json` to include a `dev` script:
 
-  ```json
-  "scripts": {
+     ```json
+     "scripts": {
     "dev": "ts-node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
-  }
-  ```
+     }
+     ```
 4) Create a .env file in the root directory with the following key:
    ```
       OPENAI_API_KEY=your_api_key_here

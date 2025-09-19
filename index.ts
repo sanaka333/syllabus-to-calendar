@@ -37,6 +37,9 @@ const app = express();
 // Enable CORS (Cross-Origin Resource Sharing) so frontend requests from different origins are allowed
 app.use(cors());
 
+// Build an absolute path to the "public" folder
+// process.cwd() = current working directory (project root)
+// path.join(...) = safely join "project root" + "public"
 const publicPath = path.join(process.cwd(), "public");
 
 // Allow Express to serve static frontend files (HTML, CSS, JS) directly from this folder.

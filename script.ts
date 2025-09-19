@@ -19,7 +19,7 @@ uploadBtn.addEventListener("click", async (e: MouseEvent) => {
 
   try {
     // Send the file to the backend at POST /upload
-    const response = await fetch("http://localhost:3000/upload", {
+    const response = await fetch("/api/upload", {
       method: "POST", // POST = send data to the backend
       body: formData, // Attach file data
     });

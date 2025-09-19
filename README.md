@@ -61,3 +61,8 @@ The goal of this project was to take a syllabus in PDF format and transform it i
 5) Testing:
    - Two sample syllabus files (`Dawson-Syllabus-Fall-2024.pdf` and `Syllabus-1950.pdf`) are included in the `test-files/` folder.  
    - These files are provided to demonstrate the upload, extraction, and conversion workflow without requiring users to supply their own syllabus immediately.
+
+## Bonus: Google Calendar API Integration
+- The `calendar-integration` branch contains the full Google Calendar API integration.
+- It works successfully on my local environment, but Vercel is unable to connect the frontend to the backend, so the integration does not currently run on there.
+

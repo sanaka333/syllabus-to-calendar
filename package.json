@@ -19,7 +19,7 @@
     "googleapis": "^160.0.0",
     "multer": "^2.0.2",
     "open": "^10.2.0",
-    "openai": "^5.20.2",
+    "openai": "^5.22.0",
     "pdf-parse": "^1.1.1"
   },
   "devDependencies": {

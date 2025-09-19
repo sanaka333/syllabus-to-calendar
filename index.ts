@@ -244,7 +244,7 @@ app.listen(3000, () => {
 // Define a POST endpoint at "/upload" to handle file uploads
 // "upload.single('file')" tells multer to accept a single file upload with field name "file"
 // The handler function is marked "async" so we can use "await" inside (for example, waiting for PDF parsing or API calls)
-app.post("/upload", upload.single("file"), async (req: Request, res: Response) => {
+app.post("/api/upload", upload.single("file"), async (req: Request, res: Response) => {
 
   // If no file was uploaded, return an error response to the frontend
   if (!req.file) {

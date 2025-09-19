@@ -42,11 +42,18 @@ app.use(cors());
 // In other words, Express also works as a simple web server for our frontend assets
 app.use(express.static(path.join(__dirname)));
 
-// Configure Multer middleware to handle file uploads, storing them in the "uploads/" folder
-const upload = multer({ dest: "uploads/"});
+// Configure Multer middleware to handle file uploads
+// - Use memoryStorage() instead of writing files to disk
+// - This means uploaded PDFs are stored directly in memory as a Buffer
+// - Avoids issues on platforms like Vercel where the file system is read-only
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 // Load environment variables from the .env file into process.env
-dotenv.config();
+// In production (Vercel), env vars come from the dashboard instead.
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 
 // Initialize the OpenAI client with the API key stored in .env
 const client = new openai.OpenAI({
@@ -64,7 +71,7 @@ const client = new openai.OpenAI({
 // res = the response we send back to the frontend
 app.get("/", (req: Request, res: Response) => {
   // Send the index.html file when the frontend accesses the root URL
-  res.sendFile(path.join(__dirname, "index.html"));  
+  res.sendFile(path.join(__dirname, "public/"));  
 });
 
 // Start the Express server on port 3000
@@ -88,7 +95,7 @@ app.post("/upload", upload.single("file"), async (req: Request, res: Response) =
     console.log("Uploaded file:", req.file);
 
     // Read the uploaded PDF into a buffer (raw binary data)
-    const dataBuffer = fs.readFileSync(req.file.path);
+     const dataBuffer = req.file.buffer;
 
     // Use pdf-parse to extract text from the PDF buffer
     // - The "buffer" contains the raw binary data of the uploaded PDF

@@ -54,7 +54,10 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 // Load environment variables from the .env file into process.env
-dotenv.config();
+// In production (Vercel), env vars come from the dashboard instead.
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 
 // Initialize the OpenAI client with the API key stored in .env
 const client = new openai.OpenAI({
@@ -64,23 +67,33 @@ const client = new openai.OpenAI({
 // Define the absolute path to the credentials.json file
 // process.cwd() = "current working directory" (the folder where you run the command from)
 // Using process.cwd() only works if you always run the program from the project folder
-const CREDENTIALS_PATH = path.join(process.cwd(), "credentials.json");
+// No longer needed — credentials now come from environment variables
+// const CREDENTIALS_PATH = path.join(process.cwd(), "credentials.json");
 
 // Define the absolute path to the token.json file
 // path.join() = safely builds a file path 
 // This file will store the user's OAuth tokens once they've logged in
 const TOKENS_PATH = path.join(process.cwd(), "token.json");
 
-// Read the credentials.json file synchronously (blocking)
-// fs.readFileSync(..., "utf-8") -> loads the file content as text
-// JSON.parse(...) -> converts that text into a JavaScript object 
-const credentials = JSON.parse(fs.readFileSync(CREDENTIALS_PATH, "utf-8"));
+// Load Google API credentials from environment variables (set in Vercel dashboard)
+// - client_id and client_secret come from your Google Cloud app
+// - redirect_uris must match the one you configured in Google Cloud + Vercel
+// - token_uri and auth_uri are fixed Google endpoints
+const credentials = {
+  installed: {
+    client_id: process.env.GOOGLE_CLIENT_ID,
+    client_secret: process.env.GOOGLE_CLIENT_SECRET,
+    redirect_uris: [process.env.GOOGLE_REDIRECT_URI],
+    token_uri: "https://oauth2.googleapis.com/token",
+    auth_uri: "https://accounts.google.com/o/oauth2/auth",
+  },
+};
 
 // Extract specific fields from credentials.web
 // client_id = unique app ID from Google
 // client_secret = password-like value for your app
 // redirect_uris = list of redirect URLs registered in Google Cloud console
-const { client_id, client_secret, redirect_uris } = credentials.web;
+const { client_id, client_secret, redirect_uris } = credentials.installed;
 
 // Create an OAuth2 client object using Google's library
 // Parameters: (client_id, client_secret, first redirect URI)

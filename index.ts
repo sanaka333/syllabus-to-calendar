@@ -246,14 +246,20 @@ app.post("/upload", upload.single("file"), async (req: Request, res: Response) =
       },
       {
         role: "user",
-        content: `Extract all assignments, readings, and exams.
-                Return them as an object with this structure:
-                {
-                  "events": [
-                    { "title": "Assignment name", "description": "Details", "date": "YYYY-MM-DD" }
-                  ]
-                }
-                Input syllabus text:\n\n${data.text}`
+        content: `Extract ALL key events from the syllabus, including:
+                  - Weekly readings
+                  - Assignments and project due dates
+                  - Quizzes, midterms, and finals
+
+                  Return them in this structure:
+                  {
+                    "events": [
+                      { "title": "Week 1 Readings", "description": "Pages 1-50", "date": "2024-09-02" },
+                      { "title": "Assignment 1 Due", "description": "Submit case brief", "date": "2024-09-10" },
+                      { "title": "Midterm Exam", "description": "Covers Weeks 1-5", "date": "2024-10-15" }
+                    ]
+                  }
+                  ${data.text}`
         // data.text = the raw syllabus text extracted by pdf-parse
         // Including it here gives the model the actual content to analyze,
         // so it can pull assignments, readings, and exams from the real PDF text

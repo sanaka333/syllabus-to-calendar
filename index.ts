@@ -46,8 +46,12 @@ app.use(cors());
 // In other words, Express also works as a simple web server for our frontend assets
 app.use(express.static(path.join(__dirname)));
 
-// Configure Multer middleware to handle file uploads, storing them in the "uploads/" folder
-const upload = multer({ dest: "uploads/"});
+// Configure Multer middleware to handle file uploads
+// - Use memoryStorage() instead of writing files to disk
+// - This means uploaded PDFs are stored directly in memory as a Buffer
+// - Avoids issues on platforms like Vercel where the file system is read-only
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 // Load environment variables from the .env file into process.env
 dotenv.config();
@@ -222,7 +226,10 @@ app.post("/upload", upload.single("file"), async (req: Request, res: Response) =
     console.log("Uploaded file:", req.file);
 
     // Read the uploaded PDF into a buffer (raw binary data)
-    const dataBuffer = fs.readFileSync(req.file.path);
+    // - Multer provides the file contents directly in memory as req.file.buffer
+    // - This buffer is the raw binary form of the uploaded PDF (not text yet)
+    // - We will pass this buffer to pdf-parse to extract plain text later
+    const dataBuffer = req.file.buffer;
 
     // Use pdf-parse to extract text from the PDF buffer
     // - The "buffer" contains the raw binary data of the uploaded PDF

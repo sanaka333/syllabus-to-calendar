@@ -100,34 +100,51 @@ const { client_id, client_secret, redirect_uris } = credentials.installed;
 // redirect_uris[0] = the first URL listed in credentials.json
 const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
 
-// Check if "token.json" already exists in the project folder
-// (fs.existsSync returns true if the file is found, false otherwise)
-if (fs.existsSync(TOKENS_PATH)) {
+function loadTokens() {
+  try {
+    // -----------------------------
+    // Case 1: Running on Vercel
+    // -----------------------------
+    // If GOOGLE_TOKENS is defined in environment variables,
+    // use that instead of looking for token.json (since FS is read-only).
+    if (process.env.GOOGLE_TOKENS) {
+      const tokens = JSON.parse(process.env.GOOGLE_TOKENS);
+      console.log("Loaded Google tokens from environment variables");
+      return tokens;
+    }
 
-  // If token.json exists, read the file immediately and wait until it's done 
-  // (the program pauses here until the file is fully loaded).
-  // fs.readFileSync("token.json", "utf-8") -> returns the file contents as a string
-  // JSON.parse(...) -> converts that string into a usable JS object
-  const tokens = JSON.parse(fs.readFileSync(TOKENS_PATH, "utf-8"));
+    // -----------------------------
+    // Case 2: Running locally
+    // -----------------------------
+    // If token.json exists in your project folder, load it from disk.
+    if (fs.existsSync(TOKENS_PATH)) {
+      const tokens = JSON.parse(fs.readFileSync(TOKENS_PATH, "utf-8"));
+      console.log("Loaded Google tokens from token.json");
+      return tokens;
+    }
 
-  // Set those tokens (access + refresh) as the current credentials
-  // This means we don't need to ask the user to log in again
+    // -----------------------------
+    // Case 3: No tokens available
+    // -----------------------------
+    // On first run (before login), neither env var nor token.json will exist.
+    // Just return null here — don't crash the whole app.
+    console.error("No tokens found. Please authenticate first.");
+    return null;
+
+  } catch (err) {
+    console.error("Failed to load tokens:", err);
+    return null;
+  }
+}
+
+// Load saved tokens (either from env on Vercel or token.json locally)
+const tokens = loadTokens();
+
+if (tokens) {
   oAuth2Client.setCredentials(tokens);
-
-  // Log confirmation message in the terminal
-  console.log("Loaded Google tokens from token.json");
+  console.log("OAuth2 client initialized with saved tokens");
 } else {
-  // If token.json does NOT exist:
-  // - It means the app has not yet gone through the OAuth2 login flow
-  // - Without token.json, the app has no access/refresh tokens to talk to Google Calendar API
-  // - So we cannot authenticate or make any calendar requests
-  console.error("token.json not found. Run calendar-test.ts first.");
-
-  // Exit the Node.js process with status code 1 (error)
-  // - process.exit(0) = success/normal exit
-  // - process.exit(1) = failure/error exit
-  // This prevents the server from running in an invalid state without credentials
-  process.exit(1);
+  console.log("No saved tokens found. Run login flow to generate new tokens.");
 }
 
 // Function: isValidDate

@@ -12,3 +12,7 @@ dist/
 
 # Uploaded/generated files
 uploads/
+
+# Ignore sensitive Google credentials
+token.json
+credentials.json

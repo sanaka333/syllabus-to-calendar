@@ -71,7 +71,7 @@ const client = new openai.OpenAI({
 // res = the response we send back to the frontend
 app.get("/", (req: Request, res: Response) => {
   // Send the index.html file when the frontend accesses the root URL
-  res.sendFile(path.join(__dirname, "index.html"));  
+  res.sendFile(path.join(__dirname, "public", "index.html"));  
 });
 
 // Start the Express server on port 3000

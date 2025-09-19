@@ -28,6 +28,7 @@
     "@types/multer": "^2.0.0",
     "@types/node": "^24.5.2",
     "@types/pdf-parse": "^1.1.5",
+    "@vercel/node": "^5.3.23",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   }

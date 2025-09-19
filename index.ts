@@ -37,10 +37,12 @@ const app = express();
 // Enable CORS (Cross-Origin Resource Sharing) so frontend requests from different origins are allowed
 app.use(cors());
 
+const publicPath = path.join(process.cwd(), "public");
+
 // Allow Express to serve static frontend files (HTML, CSS, JS) directly from this folder.
 // This lets the browser load index.html, styles.css or script.js without extra routes
 // In other words, Express also works as a simple web server for our frontend assets
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(publicPath));
 
 // Configure Multer middleware to handle file uploads
 // - Use memoryStorage() instead of writing files to disk
@@ -71,7 +73,7 @@ const client = new openai.OpenAI({
 // res = the response we send back to the frontend
 app.get("/", (req: Request, res: Response) => {
   // Send the index.html file when the frontend accesses the root URL
-  res.sendFile(path.join(__dirname, "public", "index.html"));  
+  res.sendFile(path.join(publicPath, "index.html")); 
 });
 
 // Start the Express server on port 3000

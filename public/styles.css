@@ -24,7 +24,7 @@ button {
   background-color: #007bff;                 /* Primary blue button background */
   color: white;                              /* White button text */
   border: none;                                /* Remove default button borders */
-  border-radius: 5px;                          /* Slightly rounded button corners */
+  border-radius: 10px;                         /* Slightly rounded button corners */
   cursor: pointer;                             /* Change cursor to hand pointer on hover */
 }
 
@@ -44,6 +44,10 @@ button:hover {
                                                   and keeps JSON formatting readable */
 }
 
-
-
-
+.file-upload{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: relative;
+  left: 40px;
+}
